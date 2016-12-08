@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>chart.js</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script src="Chart.min.js"></script>
+    <script src="chartjs-plugin-annotation.min.js"></script>
+    <script>
+        window.onload = function () {
+            function createValue() {
+                return Math.floor(Math.random() * 100);
+            }
+
+            var ctx = document.getElementById("canvas");
+            new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: [1, 2, 3, 4, 5],
+                    datasets: [{
+                        data: [createValue(), createValue(), createValue(), createValue(), createValue()]
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true
+                            }
+                        }]
+                    },
+                    annotation: {
+                        drawTime: "afterDatasetsDraw",  //afterDrawだと、dataのtooltipsが線の下に描画されてしまう
+                        annotations: [{
+                            type: "line",
+                            scaleID: "y-axis-0",
+                            mode: 'horizontal',
+                            value: 20,
+                            borderColor: 'red',
+                            borderWidth: 2
+                        }]
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+</html>
